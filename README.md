@@ -12,7 +12,7 @@ This is a test task for the position of Frontend developer.
 ## How to run the project locally
 
 1. Clone the repository:
-   git clone [REPO LINK](https://github.com/KyryloLutsenko/helsi-test-form.git)
+   git clone https://github.com/KyryloLutsenko/helsi-test-form.git
 
 2. Navigate to the project folder:
    cd helsi-test-form
