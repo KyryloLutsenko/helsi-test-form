@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'react-final-form';
+import { useNavigate } from 'react-router-dom';
 
 import PatientInfoForm from 'components/forms/PatientInfoForm';
 import DocumentForm from 'components/forms/DocumentForm';
@@ -14,13 +15,17 @@ import {
   validateSelectField,
   validateTextField,
 } from 'utils/validation';
+import { urlPaths } from 'constants/urlPaths';
 
 import theme from 'styles/theme';
-import { TFormValuesProps } from './index';
+import { TFormValuesProps } from '.';
 
 const CreatePersonForm: React.FC = () => {
+  const navigate = useNavigate();
   const onSubmit = (values: TFormValuesProps) => {
     console.log('Form Data:', values);
+    navigate(urlPaths.mainPage);
+    alert('Форма успішно відправлена!');
   };
 
   const validate = (values: TFormValuesProps) => {
@@ -34,7 +39,7 @@ const CreatePersonForm: React.FC = () => {
   return (
     <Form
       onSubmit={onSubmit}
-      validate={validate}
+      // validate={validate}
       render={({ handleSubmit, form }) => (
         <FormContainer>
           <PatientInfoForm />

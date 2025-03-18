@@ -64,9 +64,6 @@ const TextField: React.FC<TTextFieldProps> = ({
                       ) : null,
                   },
                 }}
-                inputProps={{
-                  maxLength: 28,
-                }}
                 disabled={!isEnabled}
                 placeholder={placeholder}
                 value={isEnabled ? input.value : alternativeLabel}
