@@ -1,3 +1,4 @@
+// Constants for select options.
 export const genderOptions = [
   { value: 'choose', label: '-- Вибрати --' },
   { value: 'female', label: 'Жіноча' },

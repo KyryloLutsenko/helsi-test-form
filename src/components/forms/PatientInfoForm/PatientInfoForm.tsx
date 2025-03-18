@@ -4,7 +4,7 @@ import TextField from 'components/common/TextField';
 import SelectField from 'components/common/SelectField';
 import SubFormContainer from 'components/common/SubFormContainer';
 
-import { contactTypeOptions, genderOptions } from 'constants.ts/selectOptions';
+import { contactTypeOptions, genderOptions } from 'constants/selectOptions';
 
 const PatientInfoForm: React.FC = () => {
   return (
@@ -27,7 +27,13 @@ const PatientInfoForm: React.FC = () => {
         hasToogle
         additionalHelperText="Немає ІПН за віком чи має відмітку у паспорті"
       />
-      <TextField name="birthDate" label="Дата народження*" gridSize={4} />
+      <TextField
+        type="text"
+        placeholder="13.12.1971"
+        name="birthDate"
+        label="Дата народження*"
+        gridSize={4}
+      />
       <SelectField name="gender" label="Стать*" options={genderOptions} gridSize={4} />
       <TextField name="birthCountry" label="Країна народження*" gridSize={6} />
       <TextField name="birthPlace" label="Місце народження*" gridSize={6} />

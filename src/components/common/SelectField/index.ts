@@ -1,6 +1,5 @@
-import { InputLabelProps, SelectProps } from '@mui/material';
-
 export { default } from './SelectField';
+import { InputLabelProps, SelectProps } from '@mui/material';
 
 type TSelectOption = {
   value: string;

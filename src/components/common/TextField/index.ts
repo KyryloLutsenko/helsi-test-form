@@ -9,7 +9,6 @@ export type TTextFieldProps = {
   type?: string;
   variant?: TextFieldVariants;
   hasToogle?: boolean;
-  validate?: (value: string) => string | undefined;
   gridSize?: number;
   alternativeLabel?: string;
   additionalHelperText?: string;

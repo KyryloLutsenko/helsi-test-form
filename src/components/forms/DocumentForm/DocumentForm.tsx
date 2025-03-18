@@ -3,9 +3,8 @@ import React from 'react';
 import TextField from 'components/common/TextField';
 import SelectField from 'components/common/SelectField';
 import SubFormContainer from 'components/common/SubFormContainer';
-import TextareaAutosize from '@mui/material/TextareaAutosize';
 
-import { documentTypeOptions } from 'constants.ts/selectOptions';
+import { documentTypeOptions } from 'constants/selectOptions';
 
 const DocumentForm: React.FC = () => {
   return (
@@ -18,7 +17,7 @@ const DocumentForm: React.FC = () => {
       />
       <TextField name="passportNumber" label="Серія (за наявності), номер*" gridSize={6} />
       <TextField name="issueDate" label="Коли видано*" placeholder="31.12.1971" gridSize={6} />
-      <TextField name="validГntil" label="Діє до" placeholder="31.12.2050" gridSize={6} />
+      <TextField name="validUntil" label="Діє до" placeholder="31.12.2050" gridSize={6} />
       <TextField
         name="issuedBy"
         label="Ким видано*"
@@ -26,7 +25,7 @@ const DocumentForm: React.FC = () => {
         type="textarea"
         multiline
         minRows={1}
-        maxRows={3}
+        maxRows={2}
       />
       <TextField
         name="recordNumber"

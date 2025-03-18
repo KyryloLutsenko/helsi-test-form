@@ -5,6 +5,7 @@ import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 import { CssBaseline } from '@mui/material';
 import theme from 'styles/theme';
 import GlobalStyles from 'styles/globalStyles';
+import Home from 'pages/Home';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <StyledThemeProvider theme={theme}>
         <CssBaseline />
         <GlobalStyles />
-        <CreatePersonForm />
+        <Home />
       </StyledThemeProvider>
     </ThemeProvider>
   );

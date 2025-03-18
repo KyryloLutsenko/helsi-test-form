@@ -1,5 +1,14 @@
 import { createTheme } from '@mui/material/styles';
 
+declare module '@mui/material/styles' {
+  interface Palette {
+    disabledBackground: string;
+  }
+  interface PaletteOptions {
+    disabledBackground?: string;
+  }
+}
+
 const theme = createTheme({
   typography: {
     fontFamily: 'Roboto, sans-serif',
@@ -12,7 +21,7 @@ const theme = createTheme({
     body1: {
       fontSize: '16px',
     },
-    h3: {
+    h6: {
       fontSize: '20px',
       fontWeight: 600,
     },
@@ -28,6 +37,11 @@ const theme = createTheme({
       primary: '#000',
       secondary: '#939393',
     },
+    common: {
+      white: '#ffffff',
+      black: '#000000',
+    },
+    disabledBackground: '#939393',
   },
 });
 

@@ -3,7 +3,7 @@ import { InputLabel, MenuItem } from '@mui/material';
 import { Field } from 'react-final-form';
 import Grid from '@mui/material/Grid2';
 
-import { StyledSelectField, StyledFormControl } from './SelectField.styles';
+import { StyledSelectField, StyledFormControl, StyledFormHelperText } from './SelectField.styles';
 
 import { TSelectFieldProps } from '.';
 
@@ -33,6 +33,7 @@ const SelectField: React.FC<TSelectFieldProps> = ({
                 </MenuItem>
               ))}
             </StyledSelectField>
+            <StyledFormHelperText>{meta.touched && meta.error}</StyledFormHelperText>
           </StyledFormControl>
         )}
       </Field>

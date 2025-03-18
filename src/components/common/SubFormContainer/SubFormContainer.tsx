@@ -9,7 +9,7 @@ import { TSubFormContainerProps } from '.';
 const SubFormContainer: React.FC<TSubFormContainerProps> = ({ title, children }) => {
   return (
     <StyledFormContainer>
-      <Typography variant="h3">{title}</Typography>
+      <Typography variant="h6">{title}</Typography>
       <Grid container rowSpacing={3.5} columnSpacing={2.5}>
         {children}
       </Grid>
