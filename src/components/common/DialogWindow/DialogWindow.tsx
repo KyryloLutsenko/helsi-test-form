@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { DialogTitle, DialogContent, IconButton } from '@mui/material';
+import { DialogTitle, DialogContent, IconButton, useMediaQuery, Theme } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 
 import { urlPaths } from 'constants/urlPaths';
@@ -17,6 +17,7 @@ const DialogWindow: React.FC<TDialogWindowProps> = ({
   children,
 }) => {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'));
 
   const handleCloseDialog = () => {
     navigate(urlPaths.mainPage);
@@ -28,7 +29,8 @@ const DialogWindow: React.FC<TDialogWindowProps> = ({
       aria-labelledby="customized-dialog-title"
       open={isDialogOpen}
       fullWidth={fullWidth}
-      maxWidth={maxWidth}>
+      maxWidth={maxWidth}
+      fullScreen={isMobile}>
       <DialogTitle id="customized-dialog-title">{title}</DialogTitle>
       <StyledIconButton aria-label="close" onClick={handleCloseDialog}>
         <ArrowBack />

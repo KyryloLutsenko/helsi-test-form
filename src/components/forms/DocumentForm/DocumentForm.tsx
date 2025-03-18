@@ -13,15 +13,29 @@ const DocumentForm: React.FC = () => {
         name="documentType"
         label="Тип документу*"
         options={documentTypeOptions}
-        gridSize={6}
+        gridSize={{ xs: 12, sm: 6 }}
       />
-      <TextField name="passportNumber" label="Серія (за наявності), номер*" gridSize={6} />
-      <TextField name="issueDate" label="Коли видано*" placeholder="31.12.1971" gridSize={6} />
-      <TextField name="validUntil" label="Діє до" placeholder="31.12.2050" gridSize={6} />
+      <TextField
+        name="passportNumber"
+        label="Серія (за наявності), номер*"
+        gridSize={{ xs: 12, sm: 6 }}
+      />
+      <TextField
+        name="issueDate"
+        label="Коли видано*"
+        placeholder="31.12.1971"
+        gridSize={{ xs: 12, sm: 6 }}
+      />
+      <TextField
+        name="validUntil"
+        label="Діє до"
+        placeholder="31.12.2050"
+        gridSize={{ xs: 12, sm: 6 }}
+      />
       <TextField
         name="issuedBy"
         label="Ким видано*"
-        gridSize={6}
+        gridSize={{ xs: 12, sm: 6 }}
         type="textarea"
         multiline
         minRows={1}
@@ -31,7 +45,7 @@ const DocumentForm: React.FC = () => {
         name="recordNumber"
         label="Запис № (УНЗР)"
         placeholder="РРРРММДД-ХХХХХ"
-        gridSize={6}
+        gridSize={{ xs: 12, sm: 6 }}
         additionalHelperText="Вкажіть унікальний номер запису в Демографічному реєстрі (Запис №)"
       />
     </SubFormContainer>

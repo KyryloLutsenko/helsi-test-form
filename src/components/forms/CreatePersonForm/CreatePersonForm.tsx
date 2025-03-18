@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-final-form';
 
 import PatientInfoForm from 'components/forms/PatientInfoForm';
@@ -16,13 +16,14 @@ import {
 } from 'utils/validation';
 
 import theme from 'styles/theme';
+import { TFormValuesProps } from './index';
 
 const CreatePersonForm: React.FC = () => {
-  const onSubmit = (values: any) => {
+  const onSubmit = (values: TFormValuesProps) => {
     console.log('Form Data:', values);
   };
 
-  const validate = (values: any) => {
+  const validate = (values: TFormValuesProps) => {
     return {
       ...validateFields(textFields, values, validateTextField),
       ...validateFields(selectFields, values, validateSelectField),
@@ -39,8 +40,17 @@ const CreatePersonForm: React.FC = () => {
           <PatientInfoForm />
           <DocumentForm />
           <FormActionsBlock>
-            <Button onClick={handleSubmit}>Створити</Button>
-            <Button onClick={form.restart} variant="text" background={theme.palette.error.main}>
+            <Button onClick={handleSubmit} fullWidthMob>
+              Створити
+            </Button>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                form.restart();
+              }}
+              variant="text"
+              background={theme.palette.error.main}
+              fullWidthMob>
               Очистити форму
             </Button>
           </FormActionsBlock>

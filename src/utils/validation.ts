@@ -1,3 +1,5 @@
+import { TFormValuesProps } from 'components/forms/CreatePersonForm';
+
 // This file contains the validation functions for the form fields.
 export const regex = {
   ukrainian: /^(?:[А-Яа-яЇїІіЄєҐґ]+[0-9А-Яа-яЇїІіЄєҐґ\s'’`"-.]*|\d+([.,]?\d+)*)$/,
@@ -9,10 +11,11 @@ export const regex = {
   recordNo: /^\d{8}-\d{5}$/,
 };
 
+// Error messages for the form fields
 export const errorMessages = {
   required: "Поле обов'язкове",
   minLength: 'Мінімум 6 символів',
-  invalidEmail: 'Некоректний email',
+  invalidEmail: 'Некоректний email. Приклад: example@example.com',
   invalidPhone: 'Некоректний номер телефону. Приклад: +38 (093) 999-88-77',
   invalidDate: 'Некоректна дата. Приклад: 13.12.1971',
   invalidPassport: 'Некоректний формат документу. Приклад: АБ12345',
@@ -22,78 +25,81 @@ export const errorMessages = {
   selectValue: 'Оберіть значення',
 };
 
+// A utility for checking a value by a regular expression
+const validateFieldWithRegex = (
+  value: string | undefined,
+  regex: RegExp,
+  errorMessage: string,
+): string | undefined => {
+  if (value && !regex.test(value)) {
+    return errorMessage;
+  }
+  return undefined;
+};
+
 // Validate cases for text fields
-export const validateTextField = (field: string, value: any, values: any) => {
+export const validateTextField = (
+  field: keyof TFormValuesProps,
+  value: string | undefined,
+  values: TFormValuesProps,
+) => {
   if (!value) return errorMessages.required;
 
   switch (field) {
     case 'secretWord':
       if (value.length < 6) return errorMessages.minLength;
       break;
+
     case 'email':
-      if (!regex.email.test(value)) return errorMessages.invalidEmail;
-      break;
+      return validateFieldWithRegex(value, regex.email, errorMessages.invalidEmail);
+
     case 'phone':
-      if (!regex.phone.test(value)) return errorMessages.invalidPhone;
-      break;
+      return validateFieldWithRegex(value, regex.phone, errorMessages.invalidPhone);
+
     case 'birthDate':
     case 'issueDate':
-      if (!regex.date.test(value)) return errorMessages.invalidDate;
-      break;
+      return validateFieldWithRegex(value, regex.date, errorMessages.invalidDate);
+
     case 'passportNumber':
-      if (values.documentType === 'passportBook' && !regex.passport.test(value)) {
-        return errorMessages.invalidPassport;
-      } else if (values.documentType !== 'passportBook' && !regex.document.test(value)) {
-        return errorMessages.invalidDocument;
+      if (values.documentType === 'passportBook') {
+        return validateFieldWithRegex(value, regex.passport, errorMessages.invalidPassport);
+      } else {
+        return validateFieldWithRegex(value, regex.document, errorMessages.invalidDocument);
       }
-      break;
+
     default:
-      // If you need to fill out the form only in Ukrainian, please comment on the code below
-      // if (!regex.ukrainian.test(value)) return 'Використовуйте державну будь-ласка:)';
       if (value.length < 2) return errorMessages.minLetters;
   }
 
   return undefined;
 };
 
-// Validate cases for optional fields
-export const validateOptionalField = (field: string, value: any, values: any) => {
+export const validateOptionalField = (
+  field: keyof TFormValuesProps,
+  value: string | undefined,
+  values: TFormValuesProps,
+) => {
   switch (field) {
     case 'contactType':
       if (values.contactType === field && !value) {
         return errorMessages.required;
       }
       break;
+
     case 'email':
       if (values.contactType === field && !value) {
         return errorMessages.required;
-      } else if (value) {
-        const isValidEmail = regex.email.test(value);
-        if (!isValidEmail) {
-          return errorMessages.invalidEmail;
-        }
       }
-      break;
+      return validateFieldWithRegex(value, regex.email, errorMessages.invalidEmail);
 
     case 'phone':
       if (values.contactType === field && !value) {
         return errorMessages.required;
-      } else if (value) {
-        const isValidPhone = regex.phone.test(value);
-        if (!isValidPhone) {
-          return errorMessages.invalidPhone;
-        }
       }
-      break;
+      return validateFieldWithRegex(value, regex.phone, errorMessages.invalidPhone);
 
     case 'recordNumber':
-      if (value) {
-        const isValidRecordNumber = regex.recordNo.test(value);
-        if (!isValidRecordNumber) {
-          return errorMessages.invalidRecordNumber;
-        }
-      }
-      break;
+      return validateFieldWithRegex(value, regex.recordNo, errorMessages.invalidRecordNumber);
 
     default:
       if (values.contactType === field && !value) {
@@ -104,20 +110,27 @@ export const validateOptionalField = (field: string, value: any, values: any) =>
   return undefined;
 };
 
-// Validate cases for select fields
-export const validateSelectField = (field: string, value: any) => {
+export const validateSelectField = (field: keyof TFormValuesProps, value: string | undefined) => {
   if (!value || value === '-- Вибрати --') {
     return errorMessages.selectValue;
   }
   return undefined;
 };
 
-// Universal function for validating any type of fields
-export const validateFields = (fields: string[], values: any, validFunc: any) => {
-  const errors: any = {};
+export const validateFields = (
+  fields: (keyof TFormValuesProps)[],
+  values: TFormValuesProps,
+  validFunc: (
+    field: keyof TFormValuesProps,
+    value: string | undefined,
+    values: TFormValuesProps,
+  ) => string | undefined,
+) => {
+  const errors: Partial<Record<keyof TFormValuesProps, string>> = {};
   fields.forEach((field) => {
     const error = validFunc(field, values[field], values);
     if (error) errors[field] = error;
   });
+
   return errors;
 };

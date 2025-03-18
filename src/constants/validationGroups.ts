@@ -1,7 +1,7 @@
-// Constants for validation groups
+import { TFormValuesProps } from 'components/forms/CreatePersonForm';
 
 // -- CreatePersonForm fields --
-export const textFields = [
+export const textFields: (keyof TFormValuesProps)[] = [
   'surname',
   'name',
   'patronymic',
@@ -15,6 +15,11 @@ export const textFields = [
   'issueDate',
 ];
 
-export const selectFields = ['gender', 'contactType', 'documentType'];
+export const selectFields: (keyof TFormValuesProps)[] = ['gender', 'contactType', 'documentType'];
 
-export const optionalFields = ['phone', 'email', 'validUntil', 'recordNumber'];
+export const optionalFields: (keyof TFormValuesProps)[] = [
+  'phone',
+  'email',
+  'validUntil',
+  'recordNumber',
+];

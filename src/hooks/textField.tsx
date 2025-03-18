@@ -1,6 +1,11 @@
 import { useEffect } from 'react';
+import { FieldInputProps } from 'react-final-form';
 
-export const useHandleInputChange = (isEnabled: boolean, input: any, alternativeLabel?: string) => {
+export const useHandleInputChange = (
+  isEnabled: boolean,
+  input: FieldInputProps<string>,
+  alternativeLabel?: string,
+) => {
   useEffect(() => {
     if (!isEnabled) {
       input.onChange(alternativeLabel);

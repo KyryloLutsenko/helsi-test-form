@@ -6,10 +6,12 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 import ToggleSwitch from 'components/common/ToggleSwitch';
 
+import { getHelperText, getShrinkValue, isError } from 'utils/textField';
+import { useHandleInputChange } from 'hooks/textField';
+
 import { StyledTextField, StyledTextFieldBlock } from './TextField.styles';
 
 import { TTextFieldProps } from '.';
-import { useHandleInputChange } from 'hooks/textField';
 
 const TextField: React.FC<TTextFieldProps> = ({
   name,
@@ -25,22 +27,6 @@ const TextField: React.FC<TTextFieldProps> = ({
 }) => {
   const [isEnabled, setIsEnabled] = useState(true);
 
-  const getHelperText = (
-    meta: any,
-    isEnabled: boolean,
-    hasToogle?: boolean,
-    additionalHelperText?: string,
-  ) => {
-    if ((meta.touched && !!meta.error && isEnabled) || (hasToogle && isEnabled)) {
-      return meta.touched && meta.error;
-    }
-    return additionalHelperText;
-  };
-
-  const isError = (meta: any, isEnabled: boolean, hasToogle?: boolean) => {
-    return meta.touched && !!meta.error && isEnabled;
-  };
-
   return (
     <Grid size={gridSize}>
       <StyledTextFieldBlock>
@@ -50,6 +36,8 @@ const TextField: React.FC<TTextFieldProps> = ({
 
             const helperText = getHelperText(meta, isEnabled, hasToogle, additionalHelperText);
             const error = isError(meta, isEnabled, hasToogle);
+            const shrink = getShrinkValue(meta, isEnabled, hasToogle, input.value, props.focused);
+
             return (
               <StyledTextField
                 {...input}
@@ -65,11 +53,7 @@ const TextField: React.FC<TTextFieldProps> = ({
                 maxRows={props.maxRows}
                 slotProps={{
                   inputLabel: {
-                    shrink:
-                      (meta.error && meta.touched && !hasToogle) ||
-                      (hasToogle && isEnabled) ||
-                      !!props.value ||
-                      props.focused,
+                    shrink: shrink,
                   },
                   input: {
                     endAdornment:
@@ -79,6 +63,9 @@ const TextField: React.FC<TTextFieldProps> = ({
                         </InputAdornment>
                       ) : null,
                   },
+                }}
+                inputProps={{
+                  maxLength: 28,
                 }}
                 disabled={!isEnabled}
                 placeholder={placeholder}

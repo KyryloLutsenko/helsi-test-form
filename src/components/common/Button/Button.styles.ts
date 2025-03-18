@@ -1,5 +1,4 @@
 import { Button as MuiButton } from '@mui/material';
-
 import { styled } from '@mui/material/styles';
 
 export const StyledButton = styled(MuiButton, {
@@ -17,5 +16,9 @@ export const StyledButton = styled(MuiButton, {
     display: $centered ? 'block' : 'inline-flex',
     margin: $centered ? '0 auto' : undefined,
     color: $color || theme.palette.common.white,
+
+    [theme.breakpoints.up('sm')]: {
+      width: 'fit-content',
+    },
   }),
 );
